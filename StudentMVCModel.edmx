@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StudentMVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Course">
+          <Key>
+            <PropertyRef Name="Course_id" />
+          </Key>
+          <Property Name="Course_id" Type="int" Nullable="false" />
+          <Property Name="Course_name" Type="nchar" MaxLength="10" />
+          <Property Name="Dept_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Dept">
+          <Key>
+            <PropertyRef Name="Dept_id" />
+          </Key>
+          <Property Name="Dept_id" Type="int" Nullable="false" />
+          <Property Name="Dept_name" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Tbl_Student">
+          <Key>
+            <PropertyRef Name="Stud_ID" />
+          </Key>
+          <Property Name="Stud_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Stud_name" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="nchar" MaxLength="10" />
+          <Property Name="Dept_id" Type="int" />
+          <Property Name="Course_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_1">
+          <End Role="Tbl_Dept" Type="Self.Tbl_Dept" Multiplicity="0..1" />
+          <End Role="Tbl_Student" Type="Self.Tbl_Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Dept">
+              <PropertyRef Name="Dept_id" />
+            </Principal>
+            <Dependent Role="Tbl_Student">
+              <PropertyRef Name="Dept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_2">
+          <End Role="Tbl_Course" Type="Self.Tbl_Course" Multiplicity="0..1" />
+          <End Role="Tbl_Student" Type="Self.Tbl_Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Course">
+              <PropertyRef Name="Course_id" />
+            </Principal>
+            <Dependent Role="Tbl_Student">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_3">
+          <End Role="Tbl_Dept" Type="Self.Tbl_Dept" Multiplicity="0..1" />
+          <End Role="Tbl_Course" Type="Self.Tbl_Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Dept">
+              <PropertyRef Name="Dept_id" />
+            </Principal>
+            <Dependent Role="Tbl_Course">
+              <PropertyRef Name="Dept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddNewStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Stud_name" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Phone" Type="nchar" Mode="In" />
+          <Parameter Name="Dept_id" Type="int" Mode="In" />
+          <Parameter Name="Course_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Stud_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetStudentDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetStudentDetailsByDepartment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DeptID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateStudentDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Stud_ID" Type="int" Mode="In" />
+          <Parameter Name="Stud_name" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Phone" Type="nchar" Mode="In" />
+          <Parameter Name="Dept_id" Type="int" Mode="In" />
+          <Parameter Name="Course_id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="StudentMVCModelStoreContainer">
+          <EntitySet Name="Tbl_Course" EntityType="Self.Tbl_Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Dept" EntityType="Self.Tbl_Dept" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Student" EntityType="Self.Tbl_Student" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_1" Association="Self.FK_1">
+            <End Role="Tbl_Dept" EntitySet="Tbl_Dept" />
+            <End Role="Tbl_Student" EntitySet="Tbl_Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_2" Association="Self.FK_2">
+            <End Role="Tbl_Course" EntitySet="Tbl_Course" />
+            <End Role="Tbl_Student" EntitySet="Tbl_Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_3" Association="Self.FK_3">
+            <End Role="Tbl_Dept" EntitySet="Tbl_Dept" />
+            <End Role="Tbl_Course" EntitySet="Tbl_Course" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StudentMVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_Course">
+          <Key>
+            <PropertyRef Name="Course_id" />
+          </Key>
+          <Property Name="Course_id" Type="Int32" Nullable="false" />
+          <Property Name="Course_name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Dept_id" Type="Int32" />
+          <NavigationProperty Name="Tbl_Student" Relationship="Self.FK_2" FromRole="Tbl_Course" ToRole="Tbl_Student" />
+          <NavigationProperty Name="Tbl_Dept" Relationship="Self.FK_3" FromRole="Tbl_Course" ToRole="Tbl_Dept" />
+        </EntityType>
+        <EntityType Name="Tbl_Dept">
+          <Key>
+            <PropertyRef Name="Dept_id" />
+          </Key>
+          <Property Name="Dept_id" Type="Int32" Nullable="false" />
+          <Property Name="Dept_name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Tbl_Course" Relationship="Self.FK_3" FromRole="Tbl_Dept" ToRole="Tbl_Course" />
+          <NavigationProperty Name="Tbl_Student" Relationship="Self.FK_1" FromRole="Tbl_Dept" ToRole="Tbl_Student" />
+        </EntityType>
+        <EntityType Name="Tbl_Student">
+          <Key>
+            <PropertyRef Name="Stud_ID" />
+          </Key>
+          <Property Name="Stud_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Stud_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Dept_id" Type="Int32" />
+          <Property Name="Course_id" Type="Int32" />
+          <NavigationProperty Name="Tbl_Course" Relationship="Self.FK_2" FromRole="Tbl_Student" ToRole="Tbl_Course" />
+          <NavigationProperty Name="Tbl_Dept" Relationship="Self.FK_1" FromRole="Tbl_Student" ToRole="Tbl_Dept" />
+        </EntityType>
+        <Association Name="FK_2">
+          <End Role="Tbl_Course" Type="Self.Tbl_Course" Multiplicity="0..1" />
+          <End Role="Tbl_Student" Type="Self.Tbl_Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Course">
+              <PropertyRef Name="Course_id" />
+            </Principal>
+            <Dependent Role="Tbl_Student">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_3">
+          <End Role="Tbl_Dept" Type="Self.Tbl_Dept" Multiplicity="0..1" />
+          <End Role="Tbl_Course" Type="Self.Tbl_Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Dept">
+              <PropertyRef Name="Dept_id" />
+            </Principal>
+            <Dependent Role="Tbl_Course">
+              <PropertyRef Name="Dept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_1">
+          <End Role="Tbl_Dept" Type="Self.Tbl_Dept" Multiplicity="0..1" />
+          <End Role="Tbl_Student" Type="Self.Tbl_Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Dept">
+              <PropertyRef Name="Dept_id" />
+            </Principal>
+            <Dependent Role="Tbl_Student">
+              <PropertyRef Name="Dept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudentMVCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Course" EntityType="Self.Tbl_Course" />
+          <EntitySet Name="Tbl_Dept" EntityType="Self.Tbl_Dept" />
+          <EntitySet Name="Tbl_Student" EntityType="Self.Tbl_Student" />
+          <AssociationSet Name="FK_2" Association="Self.FK_2">
+            <End Role="Tbl_Course" EntitySet="Tbl_Course" />
+            <End Role="Tbl_Student" EntitySet="Tbl_Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_3" Association="Self.FK_3">
+            <End Role="Tbl_Dept" EntitySet="Tbl_Dept" />
+            <End Role="Tbl_Course" EntitySet="Tbl_Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_1" Association="Self.FK_1">
+            <End Role="Tbl_Dept" EntitySet="Tbl_Dept" />
+            <End Role="Tbl_Student" EntitySet="Tbl_Student" />
+          </AssociationSet>
+          <FunctionImport Name="AddNewStudent">
+            <Parameter Name="Stud_name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Dept_id" Mode="In" Type="Int32" />
+            <Parameter Name="Course_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteStudent">
+            <Parameter Name="Stud_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetStudentDetails" ReturnType="Collection(StudentMVCModel.GetStudentDetails_Result)" />
+          <FunctionImport Name="GetStudentDetailsByDepartment" ReturnType="Collection(StudentMVCModel.GetStudentDetailsByDepartment_Result)">
+            <Parameter Name="DeptID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateStudentDetails">
+            <Parameter Name="Stud_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Stud_name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Dept_id" Mode="In" Type="Int32" />
+            <Parameter Name="Course_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetStudentDetails_Result">
+          <Property Type="Int32" Name="Stud_ID" Nullable="false" />
+          <Property Type="String" Name="Stud_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="Dept_id" Nullable="true" />
+          <Property Type="Int32" Name="Course_id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetStudentDetailsByDepartment_Result">
+          <Property Type="Int32" Name="Stud_ID" Nullable="false" />
+          <Property Type="String" Name="Stud_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="Dept_id" Nullable="true" />
+          <Property Type="Int32" Name="Course_id" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StudentMVCModelStoreContainer" CdmEntityContainer="StudentMVCEntities">
+          <EntitySetMapping Name="Tbl_Course">
+            <EntityTypeMapping TypeName="StudentMVCModel.Tbl_Course">
+              <MappingFragment StoreEntitySet="Tbl_Course">
+                <ScalarProperty Name="Course_id" ColumnName="Course_id" />
+                <ScalarProperty Name="Course_name" ColumnName="Course_name" />
+                <ScalarProperty Name="Dept_id" ColumnName="Dept_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Dept">
+            <EntityTypeMapping TypeName="StudentMVCModel.Tbl_Dept">
+              <MappingFragment StoreEntitySet="Tbl_Dept">
+                <ScalarProperty Name="Dept_id" ColumnName="Dept_id" />
+                <ScalarProperty Name="Dept_name" ColumnName="Dept_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Student">
+            <EntityTypeMapping TypeName="StudentMVCModel.Tbl_Student">
+              <MappingFragment StoreEntitySet="Tbl_Student">
+                <ScalarProperty Name="Stud_ID" ColumnName="Stud_ID" />
+                <ScalarProperty Name="Stud_name" ColumnName="Stud_name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Dept_id" ColumnName="Dept_id" />
+                <ScalarProperty Name="Course_id" ColumnName="Course_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddNewStudent" FunctionName="StudentMVCModel.Store.AddNewStudent" />
+          <FunctionImportMapping FunctionImportName="DeleteStudent" FunctionName="StudentMVCModel.Store.DeleteStudent" />
+          <FunctionImportMapping FunctionImportName="GetStudentDetails" FunctionName="StudentMVCModel.Store.GetStudentDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StudentMVCModel.GetStudentDetails_Result">
+                <ScalarProperty Name="Stud_ID" ColumnName="Stud_ID" />
+                <ScalarProperty Name="Stud_name" ColumnName="Stud_name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Dept_id" ColumnName="Dept_id" />
+                <ScalarProperty Name="Course_id" ColumnName="Course_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStudentDetailsByDepartment" FunctionName="StudentMVCModel.Store.GetStudentDetailsByDepartment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StudentMVCModel.GetStudentDetailsByDepartment_Result">
+                <ScalarProperty Name="Stud_ID" ColumnName="Stud_ID" />
+                <ScalarProperty Name="Stud_name" ColumnName="Stud_name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Dept_id" ColumnName="Dept_id" />
+                <ScalarProperty Name="Course_id" ColumnName="Course_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateStudentDetails" FunctionName="StudentMVCModel.Store.UpdateStudentDetails" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

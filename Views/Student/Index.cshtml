@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Assignment2_Entity.Tbl_Student>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @using (Html.BeginForm("Index", "Student", FormMethod.Get))
+    {
+        <b>Search by Department</b>
+        @Html.DropDownList("Dept", ViewBag.dept as List<SelectListItem>, "Select Department", new { style = "width: 200px;" })
+        <input type="submit" value="Search" />
+    }
+</p>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Stud_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tbl_Course.Course_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tbl_Dept.Dept_name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stud_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tbl_Course.Course_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tbl_Dept.Dept_name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Stud_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Stud_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Stud_ID })
+            </td>
+        </tr>
+    }
+
+    @if (!Model.Any())
+    {
+        <tr>
+            <td colspan="6">No students found.</td>
+        </tr>
+    }
+</table>

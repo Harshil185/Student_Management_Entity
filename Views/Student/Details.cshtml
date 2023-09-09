@@ -1,0 +1,59 @@
+﻿@model Assignment2_Entity.Tbl_Student
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tbl_Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Stud_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stud_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tbl_Course.Course_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tbl_Course.Course_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tbl_Dept.Dept_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tbl_Dept.Dept_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Stud_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
