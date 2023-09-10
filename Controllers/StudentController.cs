@@ -15,14 +15,36 @@ namespace Assignment2_Entity.Controllers
     {
         private StudentMVCEntities db = new StudentMVCEntities();
 
+        public ActionResult Login()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(Tbl_Student student)
+        {
+            var row = db.Tbl_Student.Where(x => x.Stud_name == student.Stud_name && x.Email == student.Email);
+
+            if (row == null)
+            {
+                ViewBag.LoginMessage = "<script>alert('Invalid credentials')</script>";
+                return View();
+            }
+            else
+            {
+                ViewBag.LoginMessage = "<script>alert('Login Successful')</script>";
+                return RedirectToAction("Index");
+            }
+        }
+
         // GET: Student
-        public ActionResult Index(int Dept = 0)
+        public ActionResult Index(int Dept = 0 , int Course = 0)
         {
             ViewBag.Dept = new SelectList(db.Tbl_Dept, "Dept_id", "Dept_name");
-            if (Dept != 0)
+            if (Dept != 0 && Course != 0)
             {
                 ModelState.Clear();
-                var data = db.Tbl_Student.Where(x => x.Dept_id == Dept).ToList();
+                var data = db.Tbl_Student.Where(x => x.Dept_id == Dept && x.Course_id == Course).ToList();
                 return View(data);
             }
             else

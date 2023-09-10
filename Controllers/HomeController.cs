@@ -15,7 +15,7 @@ namespace Assignment2_Entity.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Student Manegment System Using Entity Framework. Database First EF . MVC  ";
 
             return View();
         }
