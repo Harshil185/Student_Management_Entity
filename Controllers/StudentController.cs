@@ -23,7 +23,7 @@ namespace Assignment2_Entity.Controllers
         [HttpPost]
         public ActionResult Login(Tbl_Student student)
         {
-            var row = db.Tbl_Student.Where(x => x.Stud_name == student.Stud_name && x.Email == student.Email);
+            var row = db.Tbl_Student.Where(x => x.Stud_name == student.Stud_name && x.Email == student.Email).FirstOrDefault();
 
             if (row == null)
             {

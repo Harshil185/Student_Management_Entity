@@ -11,11 +11,17 @@ namespace Assignment2_Entity
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Tbl_Student
     {
         public int Stud_ID { get; set; }
+
+        [Required(ErrorMessage = "Please enter User Name !!!")]
         public string Stud_name { get; set; }
+
+        [Required(ErrorMessage = "Pleae Enter Email Adress !!!")]
+        [EmailAddress(ErrorMessage = "Please Enter valid Email Id !!!")]
         public string Email { get; set; }
         public string Phone { get; set; }
         public Nullable<int> Dept_id { get; set; }

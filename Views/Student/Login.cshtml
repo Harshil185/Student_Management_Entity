@@ -1,10 +1,11 @@
 ﻿@model Assignment2_Entity.Tbl_Student
 
+@Html.Raw(ViewBag.LoginMessage)
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Student Login</h4>
         <hr />
